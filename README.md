@@ -1,25 +1,21 @@
 # DS-GA 1004 Big Data
-## Lab 2: Hadoop
-
-*Handout date*: 2023-02-15
-
-*Submission deadline*: 2023-03-03, 23:59 EST
+## Homework 3: MapReduce and Hadoop
 
 ## 0. Requirements
-
+Please read these instructions carefully to avoid confusion and delay.
 Sections 1 and 2 of this assignment are designed to get you familiar with HPC and the workflow of running Hadoop jobs.
-
-For full credit on this lab assignment, you will need to provide working solutions for sections 4, and 5.
+Section 3 demonstrates a small map-reduce project.
+For full credit on this lab assignment, you will need to provide working solutions for sections 4 and 5.
 You are provided with small example inputs for testing these programs, but we will run your programs on larger data for grading purposes.
 Be sure to commit your final working implementations to git and push your changes before the submission deadline!
 
 ## 1. High-performance Computing (HPC) at NYU
 
 This lab assignment will require the Hadoop instance administered by NYU's High-Performance Computing (HPC) center.
-To learn more about HPC at NYU, please refer to the [HPC Wiki](https://sites.google.com/nyu.edu/nyu-hpc).
+To learn more about HPC at NYU, please refer to the [HPC Wiki](https://sites.google.com/nyu.edu/nyu-hpc) or watch the recording of the HPC people who visited us.
 
 By now, you should have received notification at your NYU email address that your HPC account is active.
-If you have not received this notification yet, please contact the instructors immediately.
+If you have not received this notification yet, please contact the course tutor immediately.
 
 If you're new to HPC, please read through the [tutorials](https://sites.google.com/nyu.edu/nyu-hpc/training-support/tutorials) section of the wiki.
 This assignment will make use of the Dataproc Hadoop cluster, which is hosted on Google's cloud computing platform.
@@ -31,7 +27,7 @@ There are two ways to access Dataproc, and either is equally valid:
 Use whichever access mode you prefer.
 
 **Note**: if you have difficulty logging into Dataproc via your web browser, it may be that you are logged into the wrong Google account.
-Make sure that you are logged into your NYU Google account, and not your personal account.
+Make sure that you are logged into your *NYU* Google account, and not your personal account.
 If you're unsure if this is the problem, you can try accessing Dataproc with a private or incognito tab.
 
 Once you are able to log in to Dataproc, you will need to clone your GitHub repository to the remote server.
@@ -146,8 +142,7 @@ Don't forget to commit your solution and push back to github!
 
 *Hint*: make sure that your solution correctly handles movies with parentheses in the title, such as `101 Dalmatians (One Hundred and One Dalmatians)`!
 
-**Note**: the data provided is derived from a real movie database, and may
-contain some offensive language.  The data is provided "as-is".
+**Note**: the data provided is derived from a real movie database, and may contain content that might be offensive to modern audiences.  The data is provided "as-is".
 
 ## 5. Item co-occurrence
 
