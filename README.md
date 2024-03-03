@@ -142,7 +142,7 @@ Don't forget to commit your solution and push back to github!
 
 *Hint*: make sure that your solution correctly handles movies with parentheses in the title, such as `101 Dalmatians (One Hundred and One Dalmatians)`!
 
-**Note**: the data provided is derived from a real movie database, and may contain content that might be offensive to modern audiences.  The data is provided "as-is".
+**Note**: the data provided is from a real movie database, and thus may contain content that might be offensive to modern audiences.  The data is provided "as-is", uncensored.
 
 ## 5. Item co-occurrence
 
