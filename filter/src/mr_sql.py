@@ -3,7 +3,7 @@
 from mrjob.job import MRJob
 import re
 
-MOVIE_RE = re.compile(r"(.*) \((\d{4})\), (.*)")
+MOVIE_RE = re.compile(r"(.*) \((\d{4})\),(.*)")
 
 
 class MRMoviesByGenreCount(MRJob):
@@ -30,7 +30,7 @@ class MRMoviesByGenreCount(MRJob):
 
         """
         # Find match object for each line
-        if (match := re.match(MOVIE_RE, line)) is not None:
+        if (match := MOVIE_RE.match(line)) is not None:
             movie_name, year, movie_genre = match.groups()
             # Yield key, value pair if move genre is 'Western' or 'Sci-Fi'
             if (movie_genre == 'Western') or (movie_genre == 'Sci-Fi'):
