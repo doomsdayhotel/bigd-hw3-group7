@@ -1,12 +1,17 @@
 #! /usr/bin/env python
 
 from mrjob.job import MRJob
+import re
 
 
 class MRMoviesByGenreCount(MRJob):
     """
     Find the distinct number of movies in specific genres over time
     """
+
+    GENRES = {'Western', 'Sci-Fi'}
+    # Regular expression to match "Title (Year), Genre" and "Title (Alternative Title) (Year), Genre"
+    MOVIE_RE = re.compile(r'(.+?)\s*(\(\d{4}\))\s*,\s*(.+)')
 
     def mapper(self, _, line):
         """
@@ -28,7 +33,18 @@ class MRMoviesByGenreCount(MRJob):
 
         """
         # yield key, value pairs for your program
-        pass
+
+        match = self.MOVIE_RE.match(line)
+        if match:
+            title_with_optional_alt_title, year, genre = match.groups()
+            year = year.strip('()')
+            genre = genre.strip()
+            
+            # Clean up the entire title, including any alternative title
+            main_title = title_with_optional_alt_title.strip()
+
+            if genre in self.GENRES:
+                yield (year, genre), main_title
 
     # optional: implement the combiner:
     # def combiner(self, key, values):
@@ -55,7 +71,8 @@ class MRMoviesByGenreCount(MRJob):
                     value corresponding to each key.
         """
         # use the key-value pairs to calculate the query result
-        pass
+        unique_movies = set(values)
+        yield key, len(unique_movies)
 
 # don't forget the '__name__' == '__main__' clause!
 if __name__ == '__main__':
