@@ -1,7 +1,7 @@
 #! /usr/bin/env python
 
 from mrjob.job import MRJob
-
+import re
 
 class MRMoviesByGenreCount(MRJob):
     """
@@ -27,8 +27,21 @@ class MRMoviesByGenreCount(MRJob):
                 your reducer does the result operations correctly.
 
         """
-        # yield key, value pairs for your program
-        pass
+        
+        # Split the movie data
+        parts = line.rsplit(',',1)
+        movie_with_year = parts[0]
+        genre = parts[1].rstrip('\n')
+
+        match = re.search(r'\((\d{4})\)$', movie_with_year)
+        if match:
+            year = match.group(1)
+            title = movie_with_year[:match.start()].strip()
+            current_movie = [title, year, genre]
+
+            if genre in ['Western', 'Sci-fi']:
+                yield ((year, genre), title)
+            # yield key, value pairs for your program
 
     # optional: implement the combiner:
     # def combiner(self, key, values):
@@ -55,7 +68,8 @@ class MRMoviesByGenreCount(MRJob):
                     value corresponding to each key.
         """
         # use the key-value pairs to calculate the query result
-        pass
+        unique_titles = set(values)
+        yield (key, len(unique_titles))
 
 # don't forget the '__name__' == '__main__' clause!
 if __name__ == '__main__':
