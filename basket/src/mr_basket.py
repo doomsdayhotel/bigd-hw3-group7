@@ -37,7 +37,7 @@ class MRBasket(MRJob):
 
     def reducer_group_items_by_session(self, session_id, item_name):
         # Aggregate items bought in the same session.
-        item_list = list(item_name)
+        item_list = list(set(item_name))
         yield session_id, item_list
         '''
         example output
