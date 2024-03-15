@@ -1,6 +1,9 @@
 #! /usr/bin/env python
 
 from mrjob.job import MRJob
+import re
+
+MOVIE_RE = re.compile(r"(.*) \((\d{4})\),(.*)")
 
 
 class MRMoviesByGenreCount(MRJob):
@@ -10,7 +13,8 @@ class MRMoviesByGenreCount(MRJob):
 
     def mapper(self, _, line):
         """
-        Implement your mapper here!
+        Parse each line in input file (e.g., movies.csv) and yield key (year, movie_genre) and value movie_name if
+        movie_genre is 'Western' or 'Sci-Fi'.
 
         Parameters:
             -: None
@@ -20,15 +24,17 @@ class MRMoviesByGenreCount(MRJob):
                 each single line a file with newline stripped
 
             Yields:
-                (key, value) 
-                key: str
-                value: int
-                You'll have to design your format for the (key, value) pairs so that
-                your reducer does the result operations correctly.
+                (key, value)
+                key: (str, str) where key is a tuple of the form (year, movie genre)
+                value: str where value is the movie name
 
         """
-        # yield key, value pairs for your program
-        pass
+        # Find match object for each line
+        if (match := MOVIE_RE.match(line)) is not None:
+            movie_name, year, movie_genre = match.groups()
+            # Yield key, value pair if move genre is 'Western' or 'Sci-Fi'
+            if (movie_genre == 'Western') or (movie_genre == 'Sci-Fi'):
+                yield (year, movie_genre), movie_name
 
     # optional: implement the combiner:
     # def combiner(self, key, values):
@@ -37,26 +43,24 @@ class MRMoviesByGenreCount(MRJob):
 
     def reducer(self, key, values):
         """
-        Implement your reducer here!
-
-        You'll have to use the (key, list(values)) pairs that you designed
-        to calculate the end result and output a (key, result) pair.
+        Count the number of distinct movies for each year and movie genre.
         
         Parameters:
-            key: str
-                same as the key defined in the mapper
+            key: (str, str)
+                key is a tuple of the form (year, movie genre)
             values: list
-                list containing values corresponding to the key defined in the mapper
+                list containing movie name
 
             Yields:
-                key: str
-                    same as the key defined in the mapper
+                key: (str, str)
+                    key is a tuple of the form (year, movie)
                 value: int
-                    value corresponding to each key.
+                    Count of distinct movies for each year and movie
         """
         # use the key-value pairs to calculate the query result
-        pass
+        unique_movies = set(values)
+        yield key, len(unique_movies)
 
-# don't forget the '__name__' == '__main__' clause!
+
 if __name__ == '__main__':
     MRMoviesByGenreCount.run()
