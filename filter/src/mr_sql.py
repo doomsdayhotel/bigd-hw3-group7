@@ -3,6 +3,7 @@
 from mrjob.job import MRJob
 import re
 
+MOVIE_RE = re.compile(r"(.*) \((\d{4})\),(.*)")
 class MRMoviesByGenreCount(MRJob):
     """
     Find the distinct number of movies in specific genres over time
@@ -33,8 +34,9 @@ class MRMoviesByGenreCount(MRJob):
         movie_with_year = parts[0]
         genre = parts[1].rstrip('\n')
 
-        match = re.search(r'\((\d{4})\)$', movie_with_year)
-        if match:
+        # match = re.search(r'\((\d{4})\)$', movie_with_year)
+        # if match:
+        if (match := MOVIE_RE.match(line)) is not None:
             year = match.group(1)
             title = movie_with_year[:match.start()].strip()
             current_movie = [title, year, genre]
