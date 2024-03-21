@@ -25,7 +25,7 @@ class MRBasket(MRJob):
                 (key, value) pairs
         """
 
-        user_id, date, item_name = line.split(', ')
+        user_id, date, item_name = line.split(',')
         yield (user_id, date), item_name
 
     def reducer_group_by_basket(self, basket, items):
