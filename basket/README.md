@@ -40,7 +40,8 @@ Analyze the time and space used by each stage of your solution, including the nu
    3. Number of intermediate output: 47
    
 
-3. Reducer: `reducer_find_most_common_cooccur` 
-   * Time: O(n). Conversion to dictionary takes O(n), finding the maximum count takes O(n), filtering items with maximum count takes O(n), and yielding results through for loop takes O(n). Overall time complexity is O(4n) which simplifies to O(n).
-   * Space: O(n). Creating dictionary takes O(n) and list of most frequent co-occurrences could take up to O(n). Overall space complexity is O(2n) which simplifies to O(n).
-   *  Number of final output: 47
+3. Stage3
+   1. Reducer: `reducer_find_most_common_cooccur` 
+      * Time: O(n). Conversion to dictionary takes O(n), finding the maximum count takes O(n), filtering items with maximum count takes O(n), and yielding results through for loop takes O(n). Overall time complexity is O(4n) which simplifies to O(n).
+      * Space: O(n). Creating dictionary takes O(n) and list of most frequent co-occurrences could take up to O(n). Overall space complexity is O(2n) which simplifies to O(n).
+   2. Number of final output: 47
