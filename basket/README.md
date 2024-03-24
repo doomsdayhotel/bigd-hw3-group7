@@ -68,4 +68,26 @@ Analyze the time and space used by each stage of your solution, including the nu
    Space: O(L), where L is the number of co-occurring items for an item. All pairs need to be stored to find the co-occuring item with the largest count.
    Intermediate Output Values: J; one per item.
 
+I implemented a python program called 'mr_basked_space_time.py', which is also in this directory. So according to the custom counters:
+
+Step 1 (mapper_get_session_items and reducer_group_items_by_session):
+Space
+Reducer Group Items by Session Space (bytes)=700720
+Time
+Mapper Get Session Items Time (ms)=796
+Reducer Group Items by Session Time (ms)=63
+
+Step 2 (reducer_count_item_pairs):
+Time
+Reducer Count Item Pairs Time (ms)=0
+
+Step 3 (mapper_count_pairs and reducer_find_most_frequent_cooccur):
+Space
+Reducer Find Most Frequent Cooccur Space (bytes)=142512
+Time
+Mapper Count Pairs Time (ms)=8
+Reducer Find Most Frequent Cooccur Time (ms)=28
+
+I also realized that there is also information regarding space and time in the default system counters, but I didn't copy paste them here because that would take up too much space and make my answer a bit too messy. However, I opened a google doc file where you could check all the counters (highlighted portion): https://docs.google.com/document/d/13xydstadXnWAaxnx9p-X8BQcDr3DwiULef6hbpKaFIw/edit?usp=sharing
+
 ...
