@@ -109,10 +109,10 @@ class MRBasket(MRJob):
             co_occurrence: list[(str, int)]
                 List of tuples in the format (co_occurring_item, count) for items that co-occur with input item.
 
-            Yields: (item, cooccur_item): ((str, str), int)
+            Yields: (item, cooccur_item): (str, (str, int))
                 A (key, value) pair where key is a tuple of the most co-occurring items, and value is its co-occurrence count.
 
-            example: (('chocolates', 'pumpkins'), 1), (('chocolates', 'eggs'), 1)
+            example: ('chocolates', ('pumpkins', 1)), ('chocolates', ('eggs', 1))
         """
         cooccur_dict = dict(co_occurrence)
         # Find the item with the maximum count (most frequent co-occurrence)
